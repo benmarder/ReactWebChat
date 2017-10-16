@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import ChatRoom from './components/ChatRoom.jsx';
+import ChatRoom from './components/ChatRoom';
 import store from './store/store';
 import "./stylesheets/main.scss";
 
