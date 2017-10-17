@@ -3,6 +3,8 @@ $bootstrap-sass-asset-helper: true;
 @import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
 .chat_view{
+  margin-top:10px;
+  border-radius:7px;
   background:#d3d3d3; 
    margin: auto;
     width: 50%;
@@ -19,18 +21,22 @@ $bootstrap-sass-asset-helper: true;
   overflow-x: hidden;
 }
 .message_box{
+  font-size: 1.3em;
   width: 100%;
   padding: 7px 0;
 }
 .message_box>h3{
+  font-size: 1.2em;
   display: inline;
   padding: 0;
   margin:0;
 }
 .message_box>p{
+  font-size: 1em;
   display: inline;
 }
 .message_box>h2{
+  font-size: 1.7em;
   padding: 0;
   margin:0;
 }
@@ -85,7 +91,10 @@ main input,main button{
 main button{
   background: #196B19;
 }
-input:required:focus {
-  border: 1px solid red;
-  outline: none;
-}
+
+@media (max-width: 600px) {
+
+  body{
+    font-size:0.5em;
+  }
+ }

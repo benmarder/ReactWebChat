@@ -13,12 +13,15 @@ export default class ChatRoom extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id:"default",
       arr:["default"]
     };
+    firebase.auth().signInAnonymously();
+   
     localStorage.setItem('color', this.pickRandomColor());
     this.handleKeydown=this.handleKeydown.bind(this);
   }
-  
+
 pickRandomColor(){
   return "rgb("+
         (Math.floor(Math.random() * 256))+
@@ -37,7 +40,8 @@ pickRandomColor(){
         "message":event.target.value,
         "name":this.props.userName,
         "timeStamp": Date.now(),
-        "color":localStorage.getItem("color")
+        "color":localStorage.getItem("color"),
+        "id":this.state.id
       };
       console.log(message);
       messagesRef.push(message);
@@ -57,7 +61,6 @@ pickRandomColor(){
     }
 
   render(){
-    
     return (
       <div>
         <div className="chat_view">
@@ -86,7 +89,12 @@ pickRandomColor(){
       }
     });
     messagesRef.once('value',(snapshot)=>{//'value' event fires after 'child_added' ,so we can set the flag.
-      initialDataLoaded=true; 
+      initialDataLoaded=true;
+    });
+     firebase.auth().onAuthStateChanged((fireBaseUser)=>{
+      let state_=Object.assign({},this.state);
+      state_.id=fireBaseUser.uid
+      this.setState(state_);
     });
   }
 

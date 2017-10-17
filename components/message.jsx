@@ -27,7 +27,8 @@ export default class Message extends React.Component {
       let date = new Date(this.props.val.timeStamp);
       return (
         <div className="message_box" onMouseEnter={this.handleNouseIn}>
-          <h3 style={{color :this.props.val.color}}>{this.props.val.name}({date.toDateString()};{date.toLocaleTimeString()}): </h3>
+          [{date.toDateString()};{date.toLocaleTimeString()}]
+          <h3 style={{color :this.props.val.color}}> ({this.props.val.name}):</h3>
           <p>{this.props.val.message} </p> 
         </div>
       );
