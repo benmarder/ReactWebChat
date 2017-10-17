@@ -15,8 +15,19 @@ export default class ChatRoom extends React.Component {
     this.state = {
       arr:["default"]
     };
+    localStorage.setItem('color', this.pickRandomColor());
     this.handleKeydown=this.handleKeydown.bind(this);
   }
+  
+pickRandomColor(){
+  return "rgb("+
+        (Math.floor(Math.random() * 256))+
+        ", "+
+        (Math.floor(Math.random() * 256))+
+          ", "+
+        (Math.floor(Math.random() * 256))+
+        ")";
+}
   //get the new message that was entered from the input and store in DB.
   //that will fire the 'child_added' event listener
   handleKeydown(event){
@@ -25,7 +36,8 @@ export default class ChatRoom extends React.Component {
       let message={
         "message":event.target.value,
         "name":this.props.userName,
-        "timeStamp": Date.now()
+        "timeStamp": Date.now(),
+        "color":localStorage.getItem("color")
       };
       console.log(message);
       messagesRef.push(message);
@@ -45,11 +57,12 @@ export default class ChatRoom extends React.Component {
     }
 
   render(){
+    
     return (
       <div>
         <div className="chat_view">
           <section>
-          {this.createMessages(this.state.arr)}
+            {this.createMessages(this.state.arr)}
           </section>
           <input type="text" onKeyDown={this.handleKeydown}placeholder="write a new message" />
         </div>
@@ -64,6 +77,7 @@ export default class ChatRoom extends React.Component {
     messagesRef.on('child_added', (data)=> {
       if(initialDataLoaded){ //work around the first call for all firbase child nodes.
         this.setState({
+          color:this.state.color,
           arr:[...this.state.arr,data.val()]
           });
       }
