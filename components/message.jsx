@@ -16,10 +16,23 @@ export default class Message extends React.Component {
   }
  
   render() {
-    return (
+    if(this.props.val === null){ //initial chat message
+            console.log("here");
+      return (
       <div className="message_box">
-        <h3>{this.props.val}</h3>
+         <h2>wellcome to the awesome chat!</h2>
       </div>
-    );
+      );
+    }
+    else{ //regular chat message
+      let date = new Date(this.props.val.timeStamp);
+      return (
+        <div className="message_box">
+          <h3>{this.props.val.name}({date.toDateString()};{date.toLocaleTimeString()}): </h3>
+          <p>{this.props.val.message} </p> 
+        
+        </div>
+      );
+    }
   }
 }
