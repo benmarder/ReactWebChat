@@ -5,7 +5,7 @@ import db from '../database/database';
 import firebase from 'firebase';
 @connect((store)=>{
   return {
-    //will be mapped as props
+    //will be mapped as props in redux
   };
 })
 export default class ChatRoom extends React.Component {
@@ -13,12 +13,10 @@ export default class ChatRoom extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arr:["default"],
-      name:"defName"
+      arr:["default"]
     };
     this.handleKeydown=this.handleKeydown.bind(this);
   }
-
   //get the new message that was entered from the input and store in DB.
   //that will fire the 'child_added' event listener
   handleKeydown(event){
@@ -26,19 +24,19 @@ export default class ChatRoom extends React.Component {
       let messagesRef = db.ref().child("messages"); 
       let message={
         "message":event.target.value,
-        "name":this.state.name,
+        "name":this.props.userName,
         "timeStamp": Date.now()
       };
       console.log(message);
       messagesRef.push(message);
-      console.log("pusshed")
+      event.target.value="";
     }
   }
   createMessages(arr){
         let key=0;
         return arr.map((obj)=>{
           if(obj==="default"){ //the wellcome message
-            return <Message key={0} val={null}/>
+            return <Message userName={this.props.userName} key={0} val={null}/>
           }
           else{               //regular message
            return <Message key={++key} val={obj}/>
@@ -46,23 +44,19 @@ export default class ChatRoom extends React.Component {
         });
     }
 
-  componentWillMount(){
-    console.log("componentWillMount")
-    
-  }
-
   render(){
     return (
       <div>
-        <div id="chat_view">
+        <div className="chat_view">
+          <section>
           {this.createMessages(this.state.arr)}
+          </section>
+          <input type="text" onKeyDown={this.handleKeydown}placeholder="write a new message" />
         </div>
-        <input type="text" onKeyDown={this.handleKeydown} />
       </div>
       
     );
   }
- 
   componentDidMount(){
     console.log("componentDidMount");
     const messagesRef=db.ref().child("messages");
@@ -74,7 +68,7 @@ export default class ChatRoom extends React.Component {
           });
       }
       else{
-          //here we ignore the useless calls
+          //here we ignore the useless calls 
       }
     });
     messagesRef.once('value',(snapshot)=>{//'value' event fires after 'child_added' ,so we can set the flag.
@@ -82,15 +76,6 @@ export default class ChatRoom extends React.Component {
     });
   }
 
-  componentWillReceiveProps(){
-     console.log("componentWillReceiveProps")
-  }
-  componentShouldUptade(){
-     console.log("componentShouldUptade")
-  }
-  componentWillUpdate(){
-      console.log("componentWillUpdate")
-  }
   componentDidUpdate(){
       console.log("componentDidUpdate!!!!!!!!!!!!!!!");
       // //TODO scroll down

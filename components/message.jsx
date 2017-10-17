@@ -17,10 +17,9 @@ export default class Message extends React.Component {
  
   render() {
     if(this.props.val === null){ //initial chat message
-            console.log("here");
       return (
       <div className="message_box">
-         <h2>wellcome to the awesome chat!</h2>
+         <h2>hi {this.props.userName}, wellcome to chat!</h2>
       </div>
       );
     }
