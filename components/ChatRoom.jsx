@@ -88,9 +88,11 @@ pickRandomColor(){
           //here we ignore the useless calls 
       }
     });
-    messagesRef.once('value',(snapshot)=>{//'value' event fires after 'child_added' ,so we can set the flag.
-      initialDataLoaded=true;
+    //'value' event fires after 'child_added' ,so we can set the flag.
+    messagesRef.once('value',(snapshot)=>{
+        initialDataLoaded=true;
     });
+    //fireBase auth
      firebase.auth().onAuthStateChanged((fireBaseUser)=>{
       let state_=Object.assign({},this.state);
       state_.id=fireBaseUser.uid
@@ -99,10 +101,8 @@ pickRandomColor(){
   }
 
   componentDidUpdate(){
-      console.log("componentDidUpdate!!!!!!!!!!!!!!!");
-      // //TODO scroll down
-      // let objDiv = document.getElementById("chat_view");
-      // console.log("componentDidUpdate!!!!!!!!!!!!!!!!",objDiv);
-      // objDiv.scrollTop = objDiv.scrollHeight;
+    //auto scroll
+      let objDiv = document.querySelector(".chat_view > section");
+      objDiv.scrollTop = objDiv.scrollHeight;
   }
 }
