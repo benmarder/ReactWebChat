@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import ChatRoom from './components/ChatRoom.jsx';
 import store from './store/store';
 import SignIn from './components/SignIn';
-import "./stylesheets/main.scss";
+import 'normalize.css'; 
+import "./stylesheets/main.css";
 
 class Chat extends React.Component{
   constructor(props){

@@ -26,17 +26,56 @@ export default class SignIn extends React.Component {
             this.props.callParent(userName);
     }
   render(){
+    const landing={
+      width:"80%",
+      margin:"0 auto"
+    }
+    ,wellcomeStyle={
+      margin:"1% 0 0 0",
+      fontSize:"9.5vw",
+      letterSpacing:"0.3em",
+      textAlign: "center",
+      color:"#FFFFFF",
+    },
+    introStyle={
+      textTransform: "uppercase",
+      fontSize:"1.1vw",
+      fontWeight:"1",
+      textAlign: "center",
+      color:"#FFFFFF",
+      letterSpacing:"0.2em",
+      margin:"0 auto",
+      width:"66%"
+    },
+    formStyle={
+      width:"40%",
+      margin:"0 auto",
+      
+    },
+    intputStyle={
+      width:"100%",
+      borderRadius:"9px",
+      border: "none",
+      outline: "none",
+      height:"7vh",
+      marginTop:"5vh",
+      textAlign: "center",
+    },
+    buttonStyle={
+      marginTop:"2vh",
+      backgroundColor:"#000000",
+      color:"#FFFFFF"
+    };
+
     return (
       <div>
-        <div className="chat_view wellcome">
-            <main>
-                <h1>Welcome</h1>
-                <h2>This is the best chat ever built by the finest <br/>engineers from all over the world</h2>
-                <form action=""onSubmit={this.handleSubmit}>
-                    <input type="text "placeholder="Please enter your user name"required/>
-                    <button>Login</button>
+        <div id="landing" style={landing}>
+                <h1 style={wellcomeStyle}>WELCOME.</h1>
+                <h2 style={introStyle}>This is the best chat ever built by the finest engineers<br/>from all over the world</h2>
+                <form style={formStyle} action=""onSubmit={this.handleSubmit}>
+                    <input style={intputStyle} type="text "placeholder="Please enter a nickname"required/>
+                    <input style={Object.assign({},intputStyle,buttonStyle)} type="submit" value="LET'S GO" />
                  </form>
-            </main>
         </div>
       </div>
     );
