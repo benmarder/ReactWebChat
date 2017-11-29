@@ -26,12 +26,9 @@ export default class SignIn extends React.Component {
             this.props.callParent(userName);
     }
   render(){
-    const landing={
-      width:"80%",
-      margin:"0 auto"
-    }
-    ,wellcomeStyle={
-      margin:"1% 0 0 0",
+    const wellcomeStyle={
+      margin:"0",
+      paddingTop:"3%",
       fontSize:"9.5vw",
       letterSpacing:"0.3em",
       textAlign: "center",
@@ -69,8 +66,8 @@ export default class SignIn extends React.Component {
 
     return (
       <div>
-        <div id="landing" style={landing}>
-                <h1 style={wellcomeStyle}>WELCOME.</h1>
+        <div id="landing" >
+                <h1 style={wellcomeStyle}>WELCOME!</h1>
                 <h2 style={introStyle}>This is the best chat ever built by the finest engineers<br/>from all over the world</h2>
                 <form style={formStyle} action=""onSubmit={this.handleSubmit}>
                     <input style={intputStyle} type="text "placeholder="Please enter a nickname"required/>

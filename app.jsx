@@ -22,15 +22,32 @@ class Chat extends React.Component{
       this.setState({userName:username});
     }
     render(){
+    const SignInStyle={
+      width:"80%",
+      margin:"0 auto"
+    },
+     ChatRoomStyle={
+      width:"70%",
+      margin:"5vh auto 5vh auto",
+      height:"90vh",
+      borderRadius:"9px",
+      overflow:"hidden"
+    }
       if(this.state.userName)
-          return <ChatRoom userName={this.state.userName}/>;
-      return <SignIn callParent={this.messageFromChild}/>
+          return (
+            <div style={ChatRoomStyle}>
+              <ChatRoom userName={this.state.userName}/>;
+            </div>);
+      return (
+        <div style={SignInStyle}>
+          <SignIn style={SignInStyle} callParent={this.messageFromChild}/>
+        </div>);
     }
 }
 
 const main = (
   <Provider store={store}>
-     <Chat/>
+    <Chat/>
   </Provider>
 );
 

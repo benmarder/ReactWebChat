@@ -16,25 +16,50 @@ export default class Message extends React.Component {
     this.handleNouseIn=this.handleNouseIn.bind(this);
   }
   render() {
-    if(this.props.val === null){ //initial chat message
-      return (
-      <div className="message_box">
-         <h2>hi {this.props.userName}, wellcome to chat!</h2>
-      </div>
-      );
+    let componentStyle = {
+      width:"100%",
+      height:"12%",
+      margin: "2% 0"
+    },
+    textContainerStyle = {
+      maxWidth:"80%",
+      minHeight:"100%",
+      display:"inline-block",
+      verticalAlign:"top",
+      borderRadius:"7px",
+      backgroundColor:"#c1c1c1",
+    },
+    imgStyle = {
+      maxHeight: "70%",
+      maxWidth: "70%"
+    },
+    arrowStyle = {
+      verticalAlign:"50%",
+      maxHeight: "40%",
+      maxWidth: "40%"
+    },
+    pStyle = {
+     boxSizing:"border-box",   
+     font:"1.2em normal arial ",
+     padding:"4%",
+     color:"#1c2430",
+     verticalAlign:"middle"
     }
-    else{ //regular chat message
       let date = new Date(this.props.val.timeStamp);
       return (
-        <div className="message_box" onMouseEnter={this.handleNouseIn}>
-          [{date.toDateString()};{date.toLocaleTimeString()}]
-          <h3 style={{color :this.props.val.color}}> ({this.props.val.name}):</h3>
-          <p>{this.props.val.message} </p> 
+        <div style={componentStyle}>
+          <img src="../images/icon2.png" alt="Profile pic" style={imgStyle}/>
+          <img src="../images/arrow2.png" alt="arrow" style={arrowStyle}/>
+          <div style={textContainerStyle}  onMouseEnter={this.handleNouseIn}>
+             <p style={pStyle}>{this.props.val.message}</p> 
+          </div>
         </div>
       );
-    }
+    
   }
 
+   /* [{date.toDateString()};{date.toLocaleTimeString()}]
+          <h3 style={{color :this.props.val.color}}> ({this.props.val.name}):</h3> */
   handleNouseIn(event){
     let string = this.calcTimePassed(this.props.val.timeStamp);
     event.target.setAttribute("title",string); 
