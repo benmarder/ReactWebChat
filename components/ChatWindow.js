@@ -25,12 +25,17 @@ export default class ChatWindow extends React.Component {
         position:"relative",
         backgroundColor:"#f3f3f3",
         height:"100%",
-        overflow:"hidden"
+      }
+      const messagesStyle={
+        height:"87%",
+        overflowX:"auto"
       }
     return (
       <div style={componentStyle}>
-         {this.createMessages(this.state.arr)}
-         <Input newMessage={this.newMessage}/>
+        <div id = "messages" style={messagesStyle}>
+          {this.createMessages(this.state.arr)}
+        </div>
+        <Input newMessage={this.newMessage}/>
       </div>
     );
   }
@@ -44,7 +49,7 @@ export default class ChatWindow extends React.Component {
         "name":this.props.userName,
         "timeStamp": Date.now(),
         "color":localStorage.getItem("color"),
-        "id":this.state.id
+        "id":firebase.auth().currentUser.uid
       };
       console.log(message);
       messagesRef.push(message);
@@ -68,6 +73,7 @@ export default class ChatWindow extends React.Component {
     messagesRef.on('child_added', (data)=> {
       if(initialDataLoaded){ //work around the first call for all firbase child nodes.
         this.setState({
+          id:data.userId,
           color:this.state.color,
           arr:[...this.state.arr,data.val()]
           });
@@ -88,10 +94,10 @@ export default class ChatWindow extends React.Component {
     // });
   }
 
-  // componentDidUpdate(){
-  //   //auto scroll
-  //     let objDiv = document.querySelector(".chat_view > section");
-  //     if(objDiv)
-  //       objDiv.scrollTop = objDiv.scrollHeight;
-  // }
+  componentDidUpdate(){
+    //auto scroll
+      let objDiv = document.querySelector("#messages");
+      if(objDiv)
+        objDiv.scrollTop = objDiv.scrollHeight;
+  }
 }

@@ -57,6 +57,7 @@ export default class SignIn extends React.Component {
       height:"7vh",
       marginTop:"5vh",
       textAlign: "center",
+      boxShadow:"none"
     },
     buttonStyle={
       marginTop:"2vh",

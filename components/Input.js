@@ -12,7 +12,7 @@ export default class Input extends React.Component {
 
     render(){
         const componentStyle={
-            height:"10%",
+            height:"8%",
             borderRadius:"9px",
             border:"1px solid #9d9d9d",
             outline: "none",
@@ -22,7 +22,6 @@ export default class Input extends React.Component {
             boxSizing:"border-box",
             position:"absolute",
             bottom:"0"
-
         }
 
         return (

@@ -21,6 +21,7 @@ body{
   -moz-background-size: cover;
   -o-background-size: cover;
 }
+
 .blur{
   -webkit-filter: blur(3px);
   -moz-filter: blur(3px);

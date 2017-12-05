@@ -1,57 +1,68 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import firebase from 'firebase';
 
-@connect((store)=>{
-  return {
-    //will be mapped as props
-  };
-})
 export default class Message extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
+  constructor(props) {
+    super(props);
+    let state_ = {
+        imgSrc:"../images/icon2.png",
+        arrowSrc:"../images/arrow2.png",
+        componentStyle : { 
+          float:"left",  
+          width:"90%",
+          margin: "0.5% 5%"
+        },
+        textContainerStyle : {
+          maxWidth:"80%",
+          minHeight:"5vh",
+          font:"1.2em normal arial ",
+          display:"table",
+          borderRadius:"7px",
+          backgroundColor:"#c1c1c1",
+          color:"#1c2430",
+          padding:"1%",
+        },
+        profilePicStyle : {
+           float:"left",
+           verticalAlign:"top",
+           height: "7vh"
+        },
+        arrowStyle : {
+          float:"left",
+          paddingTop:"1%",
+          margin:"-1px",
+          maxHeight: "2%",
+          maxWidth: "2%"
+        },
+        pStyle : {
+          display: "table-cell",
+          verticalAlign: "middle"
+        }
+      };
+     if(props.val.id === firebase.auth().currentUser.uid){     //user messege styles are different 
+        state_.imgSrc = "";
+        state_.arrowSrc = "../images/arrow2white.png";
+        state_.arrowStyle.float = "right";
+        state_.componentStyle.float = "right";
+        state_.textContainerStyle.float = "right";
+        state_.textContainerStyle.backgroundColor = "#ffffff";
+      }
     
-    };
+    this.state=state_;
     this.handleNouseIn=this.handleNouseIn.bind(this);
   }
   render() {
-    let componentStyle = {
-      width:"100%",
-      height:"12%",
-      margin: "2% 0"
-    },
-    textContainerStyle = {
-      maxWidth:"80%",
-      minHeight:"100%",
-      display:"inline-block",
-      verticalAlign:"top",
-      borderRadius:"7px",
-      backgroundColor:"#c1c1c1",
-    },
-    imgStyle = {
-      maxHeight: "70%",
-      maxWidth: "70%"
-    },
-    arrowStyle = {
-      verticalAlign:"50%",
-      maxHeight: "40%",
-      maxWidth: "40%"
-    },
-    pStyle = {
-     boxSizing:"border-box",   
-     font:"1.2em normal arial ",
-     padding:"4%",
-     color:"#1c2430",
-     verticalAlign:"middle"
-    }
       let date = new Date(this.props.val.timeStamp);
-      return (
-        <div style={componentStyle}>
-          <img src="../images/icon2.png" alt="Profile pic" style={imgStyle}/>
-          <img src="../images/arrow2.png" alt="arrow" style={arrowStyle}/>
-          <div style={textContainerStyle}  onMouseEnter={this.handleNouseIn}>
-             <p style={pStyle}>{this.props.val.message}</p> 
+      return (  
+        <div style={this.state.componentStyle}>
+          <img src={this.state.imgSrc} style={this.state.profilePicStyle}/>
+          <img src={this.state.arrowSrc} style={this.state.arrowStyle}/>
+          <div style={this.state.textContainerStyle}  onMouseEnter={this.handleNouseIn}>
+            <p style={this.state.pStyle}>
+               {this.props.val.message} 
+            </p>
           </div>
         </div>
       );
