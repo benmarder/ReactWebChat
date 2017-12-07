@@ -14,7 +14,6 @@ export default class ChatRoom extends React.Component {
       id:"default",
       arr:["default"]
     };
-    firebase.auth().signInAnonymously();
     localStorage.setItem('color', this.pickRandomColor());
   }
  render(){

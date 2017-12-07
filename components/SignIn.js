@@ -9,17 +9,32 @@ export default class SignIn extends React.Component {
     this.state = {
      
     };
-    this.handleSubmit = this.handleSubmit.bind(this);   
-}
-    handleSubmit(element){
-        element.preventDefault();
-        let userName = document.querySelector("input").value;
-        if(/^ +$/.test(userName)){ // no name is not valid
-            alert("common dude.. space is not a name!!")
-        }
-        else
-            this.props.callParent(userName);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    firebase.auth().signInAnonymously();   
+  }
+  handleSubmit(element){
+    element.preventDefault();
+    let userName = document.querySelector("input").value;
+    if(/^ +$/.test(userName)){ // no name is not valid
+        alert("common dude.. space is not a name!!")
+        return;
     }
+    //fireBase auth
+    let onilneUsersRef =  db.ref().child("onlineUsers");
+    firebase.auth().onAuthStateChanged((fireBaseUser)=>{
+      onilneUsersRef.once('value', snapshot=>{
+        if (snapshot.hasChild(fireBaseUser.uid)) {
+            alert('you are trying to log in twice from one session. (for testing : try other browser or incognito)');
+        }
+        else{
+          let userOnline = onilneUsersRef.child(fireBaseUser.uid);
+          userOnline.set(userName)
+                      .then(()=>userOnline.onDisconnect().remove());
+          this.props.callParent(userName);
+        }
+      });
+    });  
+  }
   render(){
     const wellcomeStyle={
       margin:"0",

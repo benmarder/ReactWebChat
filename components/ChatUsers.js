@@ -50,12 +50,6 @@ export default class ChatUsers extends React.Component {
         onlineUsers : this.state.onlineUsers.filter(name=>name!==snapshot.val())
       });
     });
-    //fireBase auth
-    firebase.auth().onAuthStateChanged((fireBaseUser)=>{
-      let userOnline = onilneUsersRef.child(fireBaseUser.uid);
-      userOnline.set(this.props.userName)
-                .then(()=>userOnline.onDisconnect().remove())
-    });
     
   //   var amOnline = new Firebase("https://lets-chat-43e37.firebaseio.com/.info/connected");
   //   var userRef = new Firebase("https://lets-chat-43e37.firebaseio.com/presence/" + userid);
