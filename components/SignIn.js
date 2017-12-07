@@ -1,13 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import Message from './message.jsx';
 import db from '../database/database';
 import firebase from 'firebase';
-@connect((store)=>{
-  return {
-    //will be mapped as props
-  };
-})
+
 export default class SignIn extends React.Component {
   constructor(props) {
     super(props);

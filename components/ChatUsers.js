@@ -20,32 +20,42 @@ export default class ChatUsers extends React.Component {
         height:"100%"
       }
     return (
-      <div style={componentStyle}>
+      <ul style={componentStyle}>
         {this.createUsers(this.state.onlineUsers)}
-      </div>
+      </ul>
     );
   }
 
   
   createUsers(usersList){
-        return usersList.map((obj,i)=>{
-            console.log(obj);
+        return usersList.map((name,i)=>{
             let border="1px solid #818181";
             if(i === usersList.length-1) //last user
                 border="none";
-            return <User key={i} name={obj.userName} borderBottom={border}/>
+            return <User key={i} name={name} borderBottom={border}/>
         });
     }
   componentDidMount(){
     console.log("componentDidMount");
-    let set=new Set();
-    db.ref('/onlineUsers').once('value').then(snapshot=> {
-        snapshot.forEach(function(item) {
-           set.add({id:item.key,userName:item.val()});
-        });
-         this.setState({onlineUsers:Array.from(set)});
+    let onilneUsersRef =  db.ref().child("onlineUsers");
+    onilneUsersRef.on('child_added',snapshot=> {
+      this.setState({
+        onlineUsers:[...this.state.onlineUsers,snapshot.val()]
+      });
     });
-   
+    onilneUsersRef.on("child_removed",snapshot=>{
+      //TODO ! allow only unique usernames
+      //
+      this.setState({
+        onlineUsers : this.state.onlineUsers.filter(name=>name!==snapshot.val())
+      });
+    });
+    //fireBase auth
+    firebase.auth().onAuthStateChanged((fireBaseUser)=>{
+      let userOnline = onilneUsersRef.child(fireBaseUser.uid);
+      userOnline.set(this.props.userName)
+                .then(()=>userOnline.onDisconnect().remove())
+    });
     
   //   var amOnline = new Firebase("https://lets-chat-43e37.firebaseio.com/.info/connected");
   //   var userRef = new Firebase("https://lets-chat-43e37.firebaseio.com/presence/" + userid);

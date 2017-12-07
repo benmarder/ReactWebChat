@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import Message from './message.jsx';
 import db from '../database/database';
 import firebase from 'firebase';
 import ChatWindow from "./ChatWindow";
@@ -19,23 +18,27 @@ export default class ChatRoom extends React.Component {
     localStorage.setItem('color', this.pickRandomColor());
   }
  render(){
-    const ChatWindowStyle = {
+    const componentStyle = {
+      height:"inherit",
+      boxShadow: "5px 5px 5px #c1c1c1"
+    },
+    chatWindowStyle = {
       float:"left",
       width:"70%",
       height:"100%"
     },
-    ChatUsersStyle = {
+    chatUsersStyle = {
         float:"left",
         width:"30%",
         height:"100%"
     };
     return (
-      <div style={{height:"inherit"}}>
-        <div style={ChatWindowStyle}>
+      <div style={componentStyle}>
+        <div style={chatWindowStyle}>
           <ChatWindow userName={this.props.userName} />
         </div>
-        <div style={ChatUsersStyle}>
-          <ChatUsers />
+        <div style={chatUsersStyle}>
+          <ChatUsers userName={this.props.userName} />
         </div>
       </div>
 
@@ -72,13 +75,6 @@ pickRandomColor(){
     messagesRef.once('value',(snapshot)=>{
         initialDataLoaded=true;
     });
-    //fireBase auth
-     firebase.auth().onAuthStateChanged((fireBaseUser)=>{
-      let state_=Object.assign({},this.state);
-      state_.id=fireBaseUser.uid
-      this.setState(state_);
-    });
-  }
-
   
+  }
 }

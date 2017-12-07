@@ -12,27 +12,44 @@ export default class User extends React.Component {
 
   render(){
       const componentStyle={
+        display:"block",
         backgroundColor:"#1c2430",
-        height:"10%",
+        height:"8%",
+        padding:"2% 0",
         borderBottom:this.props.borderBottom
-      }
-    const nameStyle={
-        width:"35%",
-        height:"50%",
+      },
+      nameStyle={
+        display:"flex",
+        alignItems:"center",
+        width:"80%",
+        height:"100%",
         margin:"auto",
-        padding:"2.5vh 0",
         lineHeight: "100%",
-        textAlign:"center",
+        color:"#FFFFFF",
+      },
+      onlineStyle = {
+        alignItems:"middle",
+        maxWidth:"20%",
+        maxHeight:"50%",
+      },  
+      textStyle = {
         fontSize:"1em",
-        color:"#FFFFFF"
+        display:"inline-block",
+        margin:"0 auto"
+      },
+      profifePicStyle = {
+        height:"5vh"
       }
     return (
-      <div style={componentStyle}>
+      <li style={componentStyle}>
          <div style={nameStyle}>
-             <img src="/images/online.png" width="1em" height="1em"/>
-            {this.props.name}
+             <img src="/images/online.png" style={onlineStyle}/>
+             <p style={textStyle}>
+              {this.props.name}
+             </p>
+             <img src="/images/icon2.png" style={profifePicStyle}/>
          </div>
-      </div>
+      </li>
     );
   }
 componentWillMount(){

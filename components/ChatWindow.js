@@ -1,14 +1,8 @@
 import React from 'react';
-//import Message from './message.jsx';
 import db from '../database/database';
 import firebase from 'firebase';
-import Message from './message.jsx';
+import Message from './message';
 import Input from './Input.js';
-
-
-// import ChatView from "./ChatView";
-// import ChatInput from "./ChatInput";
-
 export default class ChatWindow extends React.Component {
 
   constructor(props) {
@@ -86,12 +80,6 @@ export default class ChatWindow extends React.Component {
     messagesRef.once('value',(snapshot)=>{
         initialDataLoaded=true;
     });
-    // //fireBase auth
-    //  firebase.auth().onAuthStateChanged((fireBaseUser)=>{
-    //   let state_=Object.assign({},this.state);
-    //   state_.id=fireBaseUser.uid
-    //   this.setState(state_);
-    // });
   }
 
   componentDidUpdate(){
