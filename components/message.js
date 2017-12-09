@@ -11,6 +11,7 @@ export default class Message extends React.Component {
         imgSrc:"../images/icon2.png",
         arrowSrc:"../images/arrow2.png",
         componentStyle : { 
+        //  display:"none",
           float:"left",
           width:"90%",
           margin: "1% 5%",
@@ -66,11 +67,9 @@ export default class Message extends React.Component {
         state_.imgSrc = "";
         state_.arrowSrc = "../images/arrow2white.png";
         state_.componentStyle.float = "right";
-        state_.arrowStyle.float = "right";
         state_.textContainerStyle.float = "right";
-        state_.arrowStyle.float = "left";
-        state_.userStyle.float = "right";
-        state_.arrowStyle.paddingRight = "0.2em";
+        state_.arrowStyle = {...state_.arrowStyle,float:"left",maxWidth:"0.8vw",paddingRight:"0.2em"};
+        state_.userStyle = {...state_.userStyle,float:"right",width:"auto"};
         state_.pStyle.backgroundColor = "#ffffff";
         state_.userNameStyle.display = "none";
         state_.profilePicStyle.display = "none";
@@ -82,7 +81,7 @@ export default class Message extends React.Component {
   render() {
      console.log(this.state.date.toLocaleTimeString()); 
       return (  
-        <div style={this.state.componentStyle}>
+        <div className="message" style={this.state.componentStyle}>
           <div style={this.state.userStyle}>
             <img src={this.state.imgSrc} style={this.state.profilePicStyle}/>
             <img src={this.state.arrowSrc} style={this.state.arrowStyle}/>
@@ -104,7 +103,9 @@ export default class Message extends React.Component {
       );
     
   }
-
+componentDidMount(){
+  //$(".message").fadeIn("slow");
+}
    // [{date.toDateString()};{date.toLocaleTimeString()}]
   handleNouseIn(event){
     let string = this.calcTimePassed(this.props.val.timeStamp);
