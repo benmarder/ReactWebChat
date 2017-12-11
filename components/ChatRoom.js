@@ -1,10 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux'
 import db from '../database/database';
 import firebase from 'firebase';
 import ChatWindow from "./ChatWindow";
 import ChatUsers from "./ChatUsers";
-
+import pickRandomColor from '../scripts/randomRGB'
 
 export default class ChatRoom extends React.Component {
 
@@ -14,7 +13,7 @@ export default class ChatRoom extends React.Component {
       id:"default",
       arr:["default"]
     };
-    localStorage.setItem('color', this.pickRandomColor());
+    localStorage.setItem('color', pickRandomColor());
   }
  render(){
     const componentStyle = {
@@ -43,16 +42,6 @@ export default class ChatRoom extends React.Component {
 
     );
   }
-pickRandomColor(){
-  return "rgb("+
-        (Math.floor(Math.random() * 256))+
-        ", "+
-        (Math.floor(Math.random() * 256))+
-          ", "+
-        (Math.floor(Math.random() * 256))+
-        ")";
-}
- 
  
   componentDidMount(){
     console.log("componentDidMount");

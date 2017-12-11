@@ -1,11 +1,11 @@
 import React from 'react';
-import {connect} from 'react-redux'
 import firebase from 'firebase';
-
+import calcTimePassed from '../scripts/timecalculator'
 export default class Message extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleNouseIn=this.handleNouseIn.bind(this);
     let state_ = {
         date : new Date(Date.now()),
         imgSrc:"../images/icon2.png",
@@ -76,7 +76,6 @@ export default class Message extends React.Component {
       }
     
     this.state=state_;
-    this.handleNouseIn=this.handleNouseIn.bind(this);
   }
   render() {
      console.log(this.state.date.toLocaleTimeString()); 
@@ -108,35 +107,7 @@ componentDidMount(){
 }
    // [{date.toDateString()};{date.toLocaleTimeString()}]
   handleNouseIn(event){
-    let string = this.calcTimePassed(this.props.val.timeStamp);
+    let string = calcTimePassed(this.props.val.timeStamp);
     event.target.setAttribute("title",string); 
-  }
-  calcTimePassed(time){
-  let mil = Date.now()-time,seconds,minutes,hours,days,weeks,result="";
-  seconds = (mil / 1000) | 0;
-  mil -= seconds * 1000;
-
-  minutes = (seconds / 60) | 0;
-  seconds -= minutes * 60;
-
-  hours = (minutes / 60) | 0;
-  minutes -= hours * 60;
-
-  days = (hours / 24) | 0;
-  hours -= days * 24;
-
-  weeks = (days / 7) | 0;
-  days -= weeks * 7;
-  if(weeks)
-    result+=weeks+=" weeks";
-    else if(days)
-      result+=days+=" days";
-      else if(minutes)
-        result+=minutes+=" minutes";
-        else if(seconds)
-          result+=seconds+=" seconds";
-    result+=" ago"
-    console.log("weeks,",weeks,"days",days,"minutes",minutes,"seconds",seconds)
-    return result;
   }
 }

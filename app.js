@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import ChatRoom from './components/ChatRoom.jsx';
+import ChatRoom from './components/ChatRoom';
 import store from './store/store';
 import SignIn from './components/SignIn';
 import 'normalize.css'; 
@@ -13,12 +13,11 @@ class Chat extends React.Component{
     this.state={
       userName:""
     }
-  this.messageFromChild = this.messageFromChild.bind(this);
+  this.getUserName = this.getUserName.bind(this);
   }
     //a callback function for children
-    messageFromChild(username){
+    getUserName(username){
       console.log("messageFromChild");
-      console.log(this.state);
       this.setState({userName:username});
     }
     render(){
@@ -40,7 +39,7 @@ class Chat extends React.Component{
             </div>);
       return (
         <div style={SignInStyle}>
-          <SignIn style={SignInStyle} callParent={this.messageFromChild}/>
+          <SignIn style={SignInStyle} setUserName={this.getUserName}/>
         </div>);
     }
 }
