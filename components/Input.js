@@ -12,16 +12,13 @@ export default class Input extends React.Component {
 
     render(){
         const componentStyle={
-            height:"8%",
+            width:"100%",
+            height:"100%",
             borderRadius:"9px",
             border:"1px solid #9d9d9d",
             outline: "none",
-            width:"95%",
-            margin:"2.5%",
             padding:"2%",
             boxSizing:"border-box",
-            position:"absolute",
-            bottom:"0"
         }
 
         return (

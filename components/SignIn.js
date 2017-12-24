@@ -71,7 +71,7 @@ export default class SignIn extends React.Component {
   /*function that checks if the given username already exists in the chat. */
   checkIfUsernameExists(userName){
     return new Promise((resolve,reject)=>{
-      this.state.onilneUsersRef.orderByValue().equalTo(userName).once("value",snapshot => {
+      this.state.onilneUsersRef.orderByChild("name").equalTo(userName).once("value",snapshot => {
         const userData = snapshot.val();
         if (userData){
           reject(`the username ${userName} already in chat, please enter a different one`);
@@ -101,15 +101,19 @@ export default class SignIn extends React.Component {
     let userName = document.querySelector("input").value,
     usernamePattern = /^\w{1,6}$/;
     if(!(usernamePattern.test(userName))){
-        alert("the username you entered is not valid, please enter a name between 1-6 characters")
+        alert("the username you entered is not valid, please enter a name between 1-6 characters with no spaces")
         return;
     }
     this.checkIfUsernameExists(userName)
         .then(this.checkIfUserIdExists)
         .then((fireBaseUser)=>{
           let userOnline = this.state.onilneUsersRef.child(fireBaseUser.uid);
-          userOnline.set(userName).then(()=>userOnline.onDisconnect().remove());
-            this.props.setUserName(userName);
+          userOnline.set({name:userName}).then(()=>userOnline.onDisconnect().remove());
+          let user = {
+            name:userName,
+            id:fireBaseUser.uid
+          }
+            this.props.setUser(user);
         })
         .catch((error)=>alert(error));  
   }

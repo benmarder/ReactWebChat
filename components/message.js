@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from 'firebase';
 import calcTimePassed from '../scripts/timecalculator'
 export default class Message extends React.Component {
 
@@ -63,7 +62,7 @@ export default class Message extends React.Component {
           color:"#c1c1c1"
         },
       };
-     if(props.val.id === firebase.auth().currentUser.uid){     //user messege styles are different 
+     if(props.isMyMessage){     //user messege styles are different 
         state_.imgSrc = "";
         state_.arrowSrc = "../images/arrow2white.png";
         state_.componentStyle.float = "right";

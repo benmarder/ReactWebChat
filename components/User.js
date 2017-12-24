@@ -6,16 +6,20 @@ export default class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        border:"none"
+        border:"none",
+        handleClick:this.props.handleClick,
+        user:this.props.user
     };
+    this.handleClick=this.handleClick.bind(this);
   }
-
+ 
   render(){
       const componentStyle={
         display:"block",
         backgroundColor:"#1c2430",
         height:"8%",
         padding:"2% 0",
+        cursor: "pointer",
         borderBottom:this.props.borderBottom
       },
       nameStyle={
@@ -41,17 +45,21 @@ export default class User extends React.Component {
         height:"5vh"
       }
     return (
-      <li style={componentStyle}>
+      <li onClick={this.handleClick} style={componentStyle}>
          <div style={nameStyle}>
              <img src="/images/online.png" style={onlineStyle}/>
              <p style={textStyle}>
-              {this.props.name}
+              {this.state.user.name}
              </p>
              <img src="/images/icon2.png" style={profifePicStyle}/>
          </div>
       </li>
     );
   }
+
+  handleClick(event){
+    this.state.handleClick(this.state.user,true)
+}
 componentWillMount(){
      
 }
