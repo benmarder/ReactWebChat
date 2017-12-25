@@ -20,7 +20,7 @@ export default class ChatUsers extends React.Component {
         height:"100%"
       }
     return (
-      <ul style={componentStyle}>
+      <ul style={{...this.props.style,...componentStyle}}>
         {this.createUsers(this.state.onlineUsers)}
       </ul>
     );

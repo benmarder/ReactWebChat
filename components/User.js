@@ -1,6 +1,5 @@
 import React from 'react';
-import db from '../database/database';
-import firebase from 'firebase';
+
 export default class User extends React.Component {
 
   constructor(props) {
@@ -35,6 +34,7 @@ export default class User extends React.Component {
         alignItems:"middle",
         maxWidth:"20%",
         maxHeight:"50%",
+        minHeight:"15px"
       },  
       textStyle = {
         fontSize:"1em",
@@ -42,7 +42,8 @@ export default class User extends React.Component {
         margin:"0 auto"
       },
       profifePicStyle = {
-        height:"5vh"
+        height:"5vh",
+        minHeight:"15px"
       }
     return (
       <li onClick={this.handleClick} style={componentStyle}>

@@ -15,7 +15,7 @@ export default class Tab extends React.Component {
             tabClicked:props.onClick
         };      
         this.removeTab = this.removeTab.bind(this);
-        this.tabClicked = this.tabClicked.bind(this);
+        this.handletabClicked = this.handletabClicked.bind(this);
     }
     
     render(){
@@ -46,7 +46,7 @@ export default class Tab extends React.Component {
             marginRight:"4px"
         };
         return (
-            <div style={componentStyle} onClick={this.tabClicked}>
+            <div style={componentStyle} onClick={this.handletabClicked}>
                 <span style={{visibility:"hidden"}}>x</span> {/*to align center just the text using flex*/}
                 <span style={textStyle}>
                     {this.state.user.name}
@@ -57,7 +57,7 @@ export default class Tab extends React.Component {
             </div>
         );
     }
-    tabClicked(){
+    handletabClicked(){
         this.state.tabClicked(this.state.user,true);
     }
     removeTab(event){

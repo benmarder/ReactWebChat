@@ -1,6 +1,5 @@
 import React from 'react';
 import db from '../database/database';
-import firebase from 'firebase';
 import Message from './message';
 import Input from './Input.js';
 export default class ChatWindow extends React.Component {
@@ -18,29 +17,12 @@ export default class ChatWindow extends React.Component {
 
   render() {
     console.log("render was called")
-    const componentStyle = {
-      display:"flex",
-      flexDirection:"column",
-      backgroundColor: "#f3f3f3",
-      height: "100%",
-    }
-    const messagesStyle = {
-      flex:"auto",
-      overflowX: "auto",
-      maxHeight:"88vh",
-    },
-    inputStyle = {
-      height:"8%",
-      width:"95%",
-      margin:"2.5%",
-    }
     return (
-      <div style={componentStyle}>
-        <div id="messages" style={messagesStyle}>
-        {console.log("chat Window in render()window id:",this.state.windowId)}
+      <div style={{...this.props.style,...styles.component}}>
+        <div id="messages" style={styles.messages}>
           {this.createMessages(this.state.messages[this.state.windowId])}
         </div>
-        <div style={inputStyle} >
+        <div style={styles.input} >
           <Input newMessage={this.newMessage} />
         </div>
       </div>
@@ -101,13 +83,10 @@ export default class ChatWindow extends React.Component {
   setFirebaseListiner(ref,isPrivate){
     const messagesRef =  db.ref(ref);
     let tab = this.state.windowId;
-   
     let initialDataLoaded = false;
     messagesRef.on('child_added', (data) => {
-      console.log("firebasec callback got message");
       if (initialDataLoaded) { //work around the first call for all firbase child nodes.
         let newState = {...this.state};
-        
         if(isPrivate)
           tab = data.val().id;
         newState.messages[tab] = newState.messages[tab] || [];
@@ -151,5 +130,23 @@ export default class ChatWindow extends React.Component {
     if(id1[0] > id2[0])
       return id1+id2;
     return id2+id1;
+  }
+}
+const styles = {
+  component : {
+    display:"flex",
+    flexDirection:"column",
+    backgroundColor: "#f3f3f3",
+    height: "100%",
+  },
+  messages : {
+    flex:"auto",
+    overflowX: "auto",
+    maxHeight:"88vh",
+  },
+  input : {
+    height:"8%",
+    width:"95%",
+    margin:"2.5%",
   }
 }

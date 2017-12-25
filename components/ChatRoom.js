@@ -12,9 +12,9 @@ export default class ChatRoom extends React.Component {
     let tabs = new Map();
     tabs.set("Lobi", { name: "Lobi", id: "Lobi" });
     this.state = {
-      user:props.user,
+      user: props.user,
       tabs: tabs,
-      activeTab:"Lobi"
+      activeTab: "Lobi"
     };
     localStorage.setItem('color', pickRandomColor());
     this.removeTab = this.removeTab.bind(this);
@@ -22,46 +22,26 @@ export default class ChatRoom extends React.Component {
     this.hasTab = this.hasTab.bind(this);
   }
   render() {
-    const componentStyle = {
-      height: "inherit",
-      display: "flex",
-      flexDirection: "column"
-    },
-    conversationTabsStyle = {
-      height:"4vh%"
-    },
-      chatStyle = {
-        flex: "auto",
-        height: "fit-content",
-        maxHeight:"92%",
-        boxShadow: "5px 5px 5px #c1c1c1"
-      },
-      chatWindowStyle = {
-        float: "left",
-        width: "70%",
-        height: "100%",
-        overflow:"hidden"
-      },
-      chatUsersStyle = {
-        float: "left",
-        width: "30%",
-        height: "100%"
-      };
     console.log("chat room rendering:!!!!::::", Array.from(this.state.tabs.values()))
     return (
-      <div style={componentStyle}>
-        <ConversationTabs style={conversationTabsStyle}
-                          tabs={Array.from(this.state.tabs.values())} 
-                          activeTab={this.state.activeTab} 
-                          removeTab={this.removeTab}
-                          handleTabClick={this.userClickHandler} />
-        <div style={chatStyle}>
-          <div style={chatWindowStyle}>
-            <ChatWindow user={this.state.user} activeTab={this.state.activeTab} createTab={this.userClickHandler} hasTab={this.hasTab} />
-          </div>
-          <div style={chatUsersStyle}>
-            <ChatUsers userClickHandler={this.userClickHandler} userName={this.props.userName} />
-          </div>
+      <div style={styles.component}>
+        <ConversationTabs
+          style={styles.conversationTabs}
+          tabs={Array.from(this.state.tabs.values())}
+          activeTab={this.state.activeTab}
+          removeTab={this.removeTab}
+          handleTabClick={this.userClickHandler} />
+        <div style={styles.chat}>
+          <ChatWindow
+            style={styles.chatWindow}
+            user={this.state.user}
+            activeTab={this.state.activeTab}
+            createTab={this.userClickHandler}
+            hasTab={this.hasTab} />
+          <ChatUsers
+            style={styles.chatUsers}
+            userClickHandler={this.userClickHandler}
+            userName={this.props.userName} />
         </div>
       </div>
     );
@@ -79,18 +59,49 @@ export default class ChatRoom extends React.Component {
     newState.activeTab = "Lobi";
     this.setState(newState);
   }
-  hasTab(user){
+  hasTab(user) {
     this.state.tabs.has(user.name);
   }
-  userClickHandler(user,makeActive) {
+  userClickHandler(user, makeActive) {
     console.log(`user : ${JSON.stringify(user)}`);
     let newState = { ...this.state };
     if (!this.hasTab(user)) {
       newState.tabs.set(user.name, user);
     }
-    if(makeActive)
+    if (makeActive)
       newState.activeTab = user.id;
     console.log("new actuve tag!:::::::::::", newState.activeTab)
     this.setState(newState);
+  }
+
+}
+const styles = {
+  component: {
+    height: "inherit",
+    display: "flex",
+    flexDirection: "column"
+  },
+  conversationTabs: {
+    height: "4vh%"
+  },
+  chat: {
+    flex: "auto",
+    height: "fit-content",
+    maxHeight: "92%",
+    borderRadius: "0 9px 9px",
+    overflow: "hidden",
+    boxSizing: "border-box",
+    boxShadowBottom: "3px 3px 5px #c1c1c1",
+  },
+  chatWindow: {
+    float: "left",
+    width: "70%",
+    height: "100%",
+    overflow: "hidden"
+  },
+  chatUsers: {
+    float: "left",
+    width: "30%",
+    height: "100%"
   }
 }

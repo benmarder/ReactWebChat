@@ -30,7 +30,6 @@ class Chat extends React.Component {
         width: "70%",
         margin: "5vh auto 5vh auto",
         height: "90vh",
-        borderRadius: "9px",
         overflow: "hidden"
       }
     if (this.state.user.id !== 0)
