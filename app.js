@@ -16,7 +16,6 @@ class Chat extends React.Component {
     this.setUser = this.setUser.bind(this);
   }
   
-  //a callback function for children
   setUser(user) {
     this.setState(
       {user: user });

@@ -5,6 +5,7 @@ import ChatWindow from "./ChatWindow";
 import ChatUsers from "./ChatUsers";
 import pickRandomColor from '../scripts/randomRGB';
 import ConversationTabs from './ConversationTabs';
+import AddPhoto from './AddPhoto';
 export default class ChatRoom extends React.Component {
 
   constructor(props) {
@@ -25,24 +26,27 @@ export default class ChatRoom extends React.Component {
     console.log("chat room rendering:!!!!::::", Array.from(this.state.tabs.values()))
     return (
       <div style={styles.component}>
-        <ConversationTabs
-          style={styles.conversationTabs}
-          tabs={Array.from(this.state.tabs.values())}
-          activeTab={this.state.activeTab}
-          removeTab={this.removeTab}
-          handleTabClick={this.userClickHandler} />
-        <div style={styles.chat}>
-          <ChatWindow
-            style={styles.chatWindow}
-            user={this.state.user}
+        <main id="chatRoom" style={styles.chatRoom}>
+          <ConversationTabs
+            style={styles.conversationTabs}
+            tabs={Array.from(this.state.tabs.values())}
             activeTab={this.state.activeTab}
-            createTab={this.userClickHandler}
-            hasTab={this.hasTab} />
-          <ChatUsers
-            style={styles.chatUsers}
-            userClickHandler={this.userClickHandler}
-            userName={this.props.userName} />
-        </div>
+            removeTab={this.removeTab}
+            handleTabClick={this.userClickHandler} />
+          <div style={styles.chat}>
+            <ChatWindow
+              style={styles.chatWindow}
+              user={this.state.user}
+              activeTab={this.state.activeTab}
+              createTab={this.userClickHandler}
+              hasTab={this.hasTab} />
+            <ChatUsers
+              style={styles.chatUsers}
+              userClickHandler={this.userClickHandler}
+              userName={this.props.userName} />
+          </div>
+        </main>
+        <AddPhoto hide={this.hidePhotoUpload} />
       </div>
     );
   }
@@ -73,10 +77,22 @@ export default class ChatRoom extends React.Component {
     console.log("new actuve tag!:::::::::::", newState.activeTab)
     this.setState(newState);
   }
+  hidePhotoUpload(){
+    console.log("hideee")
+    document.getElementById("addPhotos").style.visibility = "hidden";
+    document.getElementById("chatRoom").style.opacity = 1;
+  }
+  showPhotoUpload(){
+    document.getElementById("addPhotos").style.visibility = "visible";
+
+  }
 
 }
 const styles = {
-  component: {
+  component:{
+    height: "inherit"
+  },
+  chatRoom: {
     height: "inherit",
     display: "flex",
     flexDirection: "column"
