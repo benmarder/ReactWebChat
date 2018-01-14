@@ -68,16 +68,20 @@ export default class SignIn extends React.Component {
     }
     this.checkIfUsernameExists(userName)
       .then(this.checkIfUserIdExists)
-      .then((fireBaseUser) => {
-        let userOnline = this.state.onilneUsersRef.child(fireBaseUser.uid);
-        userOnline.set({ name: userName }).then(() => userOnline.onDisconnect().remove());
-        let user = {
-          name: userName,
-          id: fireBaseUser.uid
-        }
-        this.props.setUser(user);
+      .then((fireBaseUser)=>{
+        this.setFirebaseUser(userName,fireBaseUser.uid);
       })
       .catch((error) => alert(error));
+  }
+  setFirebaseUser(name,id,image){
+      let userOnline = this.state.onilneUsersRef.child(id);
+      userOnline.set({ name: name }).then(() => userOnline.onDisconnect().remove());
+      let user = {
+        name: name,
+        id: id,
+        image:image || null
+      }
+      this.props.setUser(user);
   }
 
 }

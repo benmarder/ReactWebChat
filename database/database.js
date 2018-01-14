@@ -5,7 +5,7 @@ const config = {
     authDomain: "lets-chat-43e37.firebaseapp.com",
     databaseURL: "https://lets-chat-43e37.firebaseio.com",
     projectId: "lets-chat-43e37",
-    storageBucket: "",
+    storageBucket: "lets-chat-43e37.appspot.com",
     messagingSenderId: "1089663295603"
   };
 

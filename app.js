@@ -11,14 +11,18 @@ class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user:{name:"default",id:0}
+      user:{
+        name:"default",
+        id:0
+      }
     }
     this.setUser = this.setUser.bind(this);
   }
   
   setUser(user) {
-    this.setState(
-      {user: user });
+    this.setState({
+      user: user 
+    });
   }
   render() {
     const SignInStyle = {
@@ -34,7 +38,7 @@ class Chat extends React.Component {
     if (this.state.user.id !== 0)
       return (
         <div style={ChatRoomStyle}>
-          <ChatRoom user={this.state.user} />;
+          <ChatRoom user={this.state.user}/>;
         </div>
       );
     else return (

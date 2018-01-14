@@ -19,11 +19,10 @@ export default class ChatRoom extends React.Component {
     };
     localStorage.setItem('color', pickRandomColor());
     this.removeTab = this.removeTab.bind(this);
-    this.userClickHandler = this.userClickHandler.bind(this);
+    this.startPrivateChat = this.startPrivateChat.bind(this);
     this.hasTab = this.hasTab.bind(this);
   }
   render() {
-    console.log("chat room rendering:!!!!::::", Array.from(this.state.tabs.values()))
     return (
       <div style={styles.component}>
         <main id="chatRoom" style={styles.chatRoom}>
@@ -32,21 +31,22 @@ export default class ChatRoom extends React.Component {
             tabs={Array.from(this.state.tabs.values())}
             activeTab={this.state.activeTab}
             removeTab={this.removeTab}
-            handleTabClick={this.userClickHandler} />
+            handleTabClick={this.startPrivateChat} />
           <div style={styles.chat}>
             <ChatWindow
               style={styles.chatWindow}
               user={this.state.user}
               activeTab={this.state.activeTab}
-              createTab={this.userClickHandler}
+              createTab={this.startPrivateChat}
               hasTab={this.hasTab} />
             <ChatUsers
               style={styles.chatUsers}
-              userClickHandler={this.userClickHandler}
-              userName={this.props.userName} />
+              startPrivateChat={this.startPrivateChat}
+              activeUser={this.state.user}
+              showPhotoUpload={this.showPhotoUpload} />
           </div>
         </main>
-        <AddPhoto hide={this.hidePhotoUpload} />
+        <AddPhoto user={this.state.user} hide={this.hidePhotoUpload} />
       </div>
     );
   }
@@ -66,7 +66,7 @@ export default class ChatRoom extends React.Component {
   hasTab(user) {
     this.state.tabs.has(user.name);
   }
-  userClickHandler(user, makeActive) {
+  startPrivateChat(user, makeActive) {
     console.log(`user : ${JSON.stringify(user)}`);
     let newState = { ...this.state };
     if (!this.hasTab(user)) {
@@ -84,7 +84,7 @@ export default class ChatRoom extends React.Component {
   }
   showPhotoUpload(){
     document.getElementById("addPhotos").style.visibility = "visible";
-
+    document.getElementById("chatRoom").style.opacity = 0.3;
   }
 
 }

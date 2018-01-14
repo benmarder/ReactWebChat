@@ -6,8 +6,10 @@ export default class User extends React.Component {
     super(props);
     this.state = {
         border:"none",
-        handleClick:this.props.handleClick,
-        user:this.props.user
+        startPrivateChat:props.startPrivateChat,
+        showPhotoUpload:props.showPhotoUpload,
+        user:props.user,
+        isActiveUser:props.isActiveUser
     };
     this.handleClick=this.handleClick.bind(this);
   }
@@ -15,6 +17,7 @@ export default class User extends React.Component {
   render(){
       const componentStyle={
         display:"block",
+        padding:"1px",
         backgroundColor:"#1c2430",
         height:"8%",
         padding:"2% 0",
@@ -42,32 +45,29 @@ export default class User extends React.Component {
         margin:"0 auto"
       },
       profifePicStyle = {
-        height:"5vh",
-        minHeight:"15px"
+        maxHeight:"100%",
+        maxWidth:"10%",
+        borderRadius:"50%"
       }
-    return (
-      <li onClick={this.handleClick} style={componentStyle}>
+      let click;
+      if(this.state.isActiveUser) //if the user is the active user, his click is ti change photo 
+        click = this.state.showPhotoUpload;
+      else
+        click = handleClick;
+      return (
+      <li onClick={click} style={componentStyle}>
          <div style={nameStyle}>
              <img src="/images/online.png" style={onlineStyle}/>
              <p style={textStyle}>
               {this.state.user.name}
              </p>
-             <img src="/images/icon2.png" style={profifePicStyle}/>
+             <img src={this.props.user.image || "/images/icon2.png"} style={profifePicStyle}/>
          </div>
       </li>
     );
   }
 
   handleClick(event){
-    this.state.handleClick(this.state.user,true)
-}
-componentWillMount(){
-     
-}
-  componentDidMount(){
-    console.log("componentDidMount");
-  }
-  componentDidUpdate(){
- 
+    this.state.startPrivateChat(this.state.user,true)
   }
 }

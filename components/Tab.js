@@ -62,7 +62,6 @@ export default class Tab extends React.Component {
     }
     removeTab(event){
         event.stopPropagation();
-        console.log("here:",event.target.name)
         this.state.removeTab(event.target.name);
     }
 

@@ -36,6 +36,35 @@ button:focus {
   filter: blur(3px);
   opacity:0.5;
 }
+
+.hoverable:hover{
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition-duration: 0.3s;
+}
+.loader{
+  visibility: hidden;
+  box-sizing: border-box;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 60px;
+  border: 1em solid rgba(0, 0, 0, 0.2);
+  border-left: 1em solid #1c2430;
+  border-radius: 50%;
+  animation: load8 1.1s infinite linear;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @media (max-width: 600px) {
   body{
     font-size:0.5em;
