@@ -1,5 +1,5 @@
 
-export default function userReducer(state = {dummy:"dum"}, action) {  
+export default function userReducer(state = { dummy: 'dum' }) {
 //  switch(action.type){
 //     case "CREATE_USER":{
 //       return{...state,name:action.payload}//emutable
@@ -7,4 +7,3 @@ export default function userReducer(state = {dummy:"dum"}, action) {
 //   }
   return state;
 }
-  

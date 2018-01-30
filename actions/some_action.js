@@ -1,9 +1,9 @@
-import database from './database';
+// import database from './database';
 
-export function someaction(dispatch) {
-  return {
-    type:"",
-    payload:""
-  }
-}
+// export default function someaction(dispatch) {
+//   return {
+//     type:"",
+//     payload:""
+//   }
+// }
 
